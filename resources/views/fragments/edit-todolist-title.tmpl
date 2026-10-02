@@ -1,0 +1,11 @@
+{{- with .Todo }}
+<div class="card-header d-flex justify-content-between align-items-center">
+    <form class="d-flex flex-grow-1"
+          hx-put="/todolists/{{.TodoID}}"
+          hx-target="#todolist-{{.TodoID}}"
+          hx-swap="outerHTML">
+        <input type="text" name="title" class="form-control me-2" value="{{.Title}}" autofocus>
+        <button type="submit" class="btn btn-sm btn-success">Save</button>
+    </form>
+</div>
+{{- end }}

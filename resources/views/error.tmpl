@@ -1,0 +1,16 @@
+{{template "views/layouts/main" .}}
+
+{{define "title"}}{{ .Error.Code }} - {{ translate (print "http.code." .Error.Code) }}{{end}}
+
+{{define "content"}}
+<div class="p-5 mb-4 bg-white rounded-3 text-center">
+    <div class="container-fluid py-5">
+        <h1 class="display-1 fw-bold">{{ .Error.Code }}</h1>
+        <h2 class="display-5">{{ translate (print "http.code." .Error.Code) }}</h2>
+        {{- with .Error.Message }}
+        <p class="fs-4">{{.}}</p>
+        {{- end }}
+        <a class="btn btn-primary btn-lg" href="/" role="button">{{ translate "error.back.home" }}</a>
+    </div>
+</div>
+{{end}}

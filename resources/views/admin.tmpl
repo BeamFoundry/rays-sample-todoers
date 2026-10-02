@@ -1,0 +1,35 @@
+{{template "layout.html" .}}
+
+{{define "title"}}Admin - User Management{{end}}
+
+{{define "content"}}
+<div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <h2 class="mb-0">User Management</h2>
+    <a href="/app" class="btn btn-outline-secondary ms-2">Back to App</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="input-group">
+            <span class="input-group-text">Search</span>
+            <input type="search"
+                   name="q"
+                   class="form-control"
+                   placeholder="Search by username or full name..."
+                   hx-get="/admin/users"
+                   hx-trigger="keyup changed delay:300ms, search"
+                   hx-target="#user-list-container"
+                   hx-indicator=".htmx-indicator">
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="user-list-container"
+             hx-get="/admin/users"
+             hx-trigger="load">
+            <p class="text-center">
+                <span class="htmx-indicator">Loading users...</span>
+            </p>
+        </div>
+    </div>
+</div>
+{{end}}

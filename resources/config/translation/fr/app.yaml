@@ -1,0 +1,49 @@
+app:
+  messages:
+    fr:
+      translation:
+        action.login: Connexion
+        action.logout: Se déconnecter
+        action.profile.update: Mettre à jour
+        action.profile: Mon Compte
+        action.register: S'enregister
+        app.action.add.item: + Tâche
+        app.action.add.list: + Liste de trucs
+        app.action.delete.list: Supprimer
+        app.confirm.delete.item: Supprimer cette tâche?
+        app.confirm.delete.list: Etes-vous sur de vouloir supprimer cette liste?
+        app.html.title: Mes trucs à faire
+        app.title: Les trucs à faire de {0}
+        error.back.home: Retour à la page d'accueil
+        fields.login.password: Mot de passe
+        fields.login.username: Nom d'utilisateur
+        fields.profile.confirm: Confirmation
+        fields.profile.fullname: Nom complet
+        fields.profile.password: Nouveau mot de passe
+        fields.register.fullname: Nom complet
+        fields.register.password: Mot de passe
+        fields.register.username: Nom d'utilisateur
+        index.html.title: Bienvenue à TODOer
+        index.slogan: Gérer vos tâches efficacement sans recharcher la page.
+        index.subtitle: Une application simple, rapide et moderne de gestion de truc à faire écrite en GO et HTMX.
+        index.title: Bienvenue à TODOer
+        item.title: Tâche {0}
+        login.error: Erreur de connexion
+        login.html.title: Connexion
+        login.register.action: Enregistrez-vous ici
+        login.register: Vous n'avez pas de compte?
+        login.title: Connexion
+        profile.back: Retour à l'application
+        profile.change-password.subtitle: Laissez ces champs vides pour garder votre mot de passe
+        profile.change-password.title: Changer de mot de passe
+        profile.html.title: Mon Compte
+        profile.informations.updated: Nom mis à jour
+        profile.informations: Mes Informations
+        profile.password.update: Mot de passe mis à jour
+        profile.title: Editer Mon Compte
+        register.html.title: S'enregister
+        register.login.action: Connectez-vous ici
+        register.login: Vous avez déjà un compte?
+        register.successful: Compte créé et connexion réussie.
+        register.title: Création de compte
+        todo.title: Liste {0}

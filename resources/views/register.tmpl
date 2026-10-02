@@ -1,0 +1,61 @@
+{{template "views/layouts/main" .}}
+
+{{define "title"}}{{translate "register.html.title"}}{{end}}
+
+{{define "content"}}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <h2 class="mb-0">{{ translate "register.title" }}</h2>
+            <div class="btn-group">
+                <a href="?lang=en" class="btn btn-{{ if ne .Lang "en" }}outline-{{end}}primary" aria-current="page">EN</a>
+                <a href="?lang=fr" class="btn btn-{{ if ne .Lang "fr" }}outline-{{end}}primary" aria-current="page">FR</a>
+            </div>
+        </div>
+        {{ if .Error }}
+        <div class="alert alert-danger" role="alert">
+            {{ .Error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{ end }}
+        <div class="card">
+            <div class="card-body">
+                <form action="/register" method="POST">
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">{{translate "fields.register.fullname"}}</label>
+                        <input type="text" id="fullname" name="fullname" 
+                            class="form-control{{if and ( .Errors ) (index .Errors "fullname")}} is-invalid{{ end }}"
+                            value="{{ .Form.Fullname }}" autofocus>
+                        {{- if and ( .Errors ) (index .Errors "fullname") }}
+                        <div class="invalid-feedback">{{ index .Errors "fullname"}}</div>
+                        {{- end }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">{{translate "fields.register.username"}}</label>
+                        <input type="text" id="username" name="username"
+                            class="form-control{{if and ( .Errors ) (index .Errors "username")}} is-invalid{{ end }}"
+                            value="{{ .Form.Username }}">
+                        {{- if and ( .Errors ) (index .Errors "username") }}
+                        <div class="invalid-feedback">{{ index .Errors "username"}}</div>
+                        {{- end }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{translate "fields.register.password"}}</label>
+                        <input type="password" id="password" name="password"
+                            class="form-control{{if and ( .Errors ) (index .Errors "password")}} is-invalid{{ end }}"
+                            value="{{ .Form.Password }}">
+                        {{- if and ( .Errors ) (index .Errors "password") }}
+                        <div class="invalid-feedback">{{ index .Errors "password"}}</div>
+                        {{- end }}
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{ .Csrf }}">
+                    <button type="submit" class="btn btn-primary w-100">{{translate "action.register"}}</button>
+                </form>
+                 <div class="text-center mt-3">
+                    <p>{{ translate "register.login"}} <a href="/login">{{ translate "register.login.action" }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

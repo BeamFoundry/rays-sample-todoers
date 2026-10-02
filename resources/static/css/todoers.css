@@ -1,0 +1,4 @@
+/* Add a pointer cursor to clickable elements that don't have it by default */
+[hx-get], [hx-post], [hx-put], [hx-delete] {
+    cursor: pointer;
+}

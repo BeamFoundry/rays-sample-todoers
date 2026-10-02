@@ -1,0 +1,81 @@
+app:
+  messages:
+    en:
+      translation:
+        http.code.0: Unknown Error
+        http.code.100: Continue
+        http.code.101: Switching Protocols
+        http.code.102: Processing
+        http.code.200: OK
+        http.code.201: Created
+        http.code.202: Accepted
+        http.code.203: Non-Authoritative Information
+        http.code.204: No Content
+        http.code.205: Reset Content
+        http.code.206: Partial Content
+        http.code.207: Multi-Status
+        http.code.208: Already Reported
+        http.code.226: IM Used
+        http.code.300: Multiple Choices
+        http.code.301: Moved Permanently
+        http.code.302: Found
+        http.code.303: See Other
+        http.code.304: Not Modified
+        http.code.305: Use Proxy
+        http.code.307: Temporary Redirect
+        http.code.308: Permanent Redirect
+        http.code.400: Bad Request
+        http.code.401: Unauthorized
+        http.code.402: Payment Required
+        http.code.403: Forbidden
+        http.code.404: Not Found
+        http.code.405: Method Not Allowed
+        http.code.406: Not Acceptable
+        http.code.407: Proxy Authentication Required
+        http.code.408: Request Timeout
+        http.code.409: Conflict
+        http.code.410: Gone
+        http.code.411: Length Required
+        http.code.412: Precondition Failed
+        http.code.413: Payload Too Large
+        http.code.414: URI Too Long
+        http.code.415: Unsupported Media Type
+        http.code.416: Range Not Satisfiable
+        http.code.417: Expectation Failed
+        http.code.418: I'm a teapot
+        http.code.419: Session Has Expired
+        http.code.421: Misdirected Request
+        http.code.422: Unprocessable Entity
+        http.code.423: Locked
+        http.code.424: Failed Dependency
+        http.code.425: Too Early
+        http.code.426: Upgrade Required
+        http.code.428: Precondition Required
+        http.code.429: Too Many Requests
+        http.code.431: Request Header Fields Too Large
+        http.code.444: Connection Closed Without Response
+        http.code.449: Retry With
+        http.code.451: Unavailable For Legal Reasons
+        http.code.499: Client Closed Request
+        http.code.500: Internal Server Error
+        http.code.501: Not Implemented
+        http.code.502: Bad Gateway
+        http.code.503: Maintenance Mode
+        http.code.504: Gateway Timeout
+        http.code.505: HTTP Version Not Supported
+        http.code.506: Variant Also Negotiates
+        http.code.507: Insufficient Storage
+        http.code.508: Loop Detected
+        http.code.509: Bandwidth Limit Exceeded
+        http.code.510: Not Extended
+        http.code.511: Network Authentication Required
+        http.code.520: Unknown Error
+        http.code.521: Web Server is Down
+        http.code.522: Connection Timed Out
+        http.code.523: Origin Is Unreachable
+        http.code.524: A Timeout Occurred
+        http.code.525: SSL Handshake Failed
+        http.code.526: Invalid SSL Certificate
+        http.code.527: Railgun Error
+        http.code.598: Network Read Timeout Error
+        http.code.599: Network Connect Timeout Error

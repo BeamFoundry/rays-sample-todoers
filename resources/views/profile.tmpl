@@ -1,0 +1,82 @@
+{{template "views/layouts/main" .}}
+
+{{define "title"}}{{ translate "profile.html.title" }}{{end}}
+
+{{define "content"}}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <h2 class="mb-0">{{ translate "profile.title" }}</h2>
+            <div>
+            <div class="btn-group">
+                <a href="?lang=en" class="btn btn-{{ if ne .Lang "en" }}outline-{{end}}primary" aria-current="page">EN</a>
+                <a href="?lang=fr" class="btn btn-{{ if ne .Lang "fr" }}outline-{{end}}primary" aria-current="page">FR</a>
+            </div>
+            <a href="/" class="btn btn-outline-secondary ms-2">{{translate "profile.back"}}</a>
+            </div>
+        </div>
+        
+        {{- if .Messages }}
+        {{- range .Messages }}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ translate . }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{- end }}
+        <script type="text/javascript">
+        $(document).ready(function() {
+            setTimeout(function() {
+                $(".alert-success").alert('close');
+            }, 5000);
+        });
+        </script>
+        {{- end }}
+        {{if .Error}}
+        <div class="alert alert-danger" role="alert">
+            {{.Error}}
+        </div>
+        {{end}}
+        <div class="card">
+            <div class="card-body">
+                <form action="/profile" method="POST">
+                    <h5 class="mb-3">{{ translate "profile.informations" }}</h5>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">{{translate "fields.profile.fullname"}}</label>
+                        <input type="text" id="name" name="name"
+                            class="form-control{{ if and ( .Errors ) (index .Errors "password") }} is-invalid{{ end }}"
+                            value="{{.User.Name }}">
+                        {{- if and ( .Errors ) (index .Errors "name") }}
+                        <div class="invalid-feedback">{{ index .Errors "name"}}</div>
+                        {{- end }}
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">{{ translate "profile.change-password.title" }}</h5>
+                    <p class="form-text">{{ translate "profile.change-password.subtitle" }}</p>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{translate "fields.profile.password"}}</label>
+                        <input type="password" id="password" name="password"
+                            class="form-control{{if and ( .Errors ) (index .Errors "password")}} is-invalid{{ end }}"
+                            value="{{ .Form.Password }}">
+                        {{- if and ( .Errors ) (index .Errors "password") }}
+                        <div class="invalid-feedback">{{ index .Errors "password"}}</div>
+                        {{- end }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm" class="form-label">{{translate "fields.profile.confirm"}}</label>
+                        <input type="password" id="confirm" name="confirm"
+                            class="form-control{{if and ( .Errors ) (index .Errors "confirm")}} is-invalid{{ end }}"
+                            value="{{ .Form.Confirm }}">
+                        {{- if and ( .Errors ) (index .Errors "confirm") }}
+                        <div class="invalid-feedback">{{ index .Errors "confirm"}}</div>
+                        {{- end }}
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{ .Csrf }}">
+                    <button type="submit" class="btn btn-primary w-100 mt-3">{{translate "action.profile.update"}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

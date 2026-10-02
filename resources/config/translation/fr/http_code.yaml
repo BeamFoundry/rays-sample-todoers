@@ -1,0 +1,81 @@
+app:
+  messages:
+    fr:
+      translation:
+        http.code.0: Erreur inconnue
+        http.code.100: Continuer
+        http.code.101: Protocoles de commutation
+        http.code.102: En traitement
+        http.code.200: OK
+        http.code.201: Créé
+        http.code.202: Accepté
+        http.code.203: Informations non certifiées
+        http.code.204: Pas de contenu
+        http.code.205: Réinitialiser le contenu
+        http.code.206: Contenu partiel
+        http.code.207: Statut multiple
+        http.code.208: Déjà rapporté
+        http.code.226: IM utilisé
+        http.code.300: Choix multiples
+        http.code.301: Déplacé de façon permanente
+        http.code.302: A trouvé
+        http.code.303: Voir autre
+        http.code.304: Non modifié
+        http.code.305: Utiliser un proxy
+        http.code.307: Redirection temporaire
+        http.code.308: Redirection permanente
+        http.code.400: Requête invalide
+        http.code.401: Non authentifié
+        http.code.402: Paiement requis
+        http.code.403: Interdit
+        http.code.404: Page non trouvée
+        http.code.405: Méthode non autorisée
+        http.code.406: Non acceptable
+        http.code.407: Authentification proxy requise
+        http.code.408: Requête expirée
+        http.code.409: Conflit
+        http.code.410: Disparu
+        http.code.411: Longueur requise
+        http.code.412: La précondition a échoué
+        http.code.413: Charge utile trop grande
+        http.code.414: URI trop long
+        http.code.415: Type de média non supporté
+        http.code.416: Plage non satisfaisante
+        http.code.417: Comportement attendu insatisfaisant
+        http.code.418: Je suis une théière
+        http.code.419: La session a expiré
+        http.code.421: Demande mal dirigée
+        http.code.422: Contenu non traitable
+        http.code.423: Verrouillé
+        http.code.424: Dépendance échouée
+        http.code.425: Trop tôt
+        http.code.426: Mise à niveau requise
+        http.code.428: Condition préalable requise
+        http.code.429: Trop de demandes
+        http.code.431: Champs d'en-tête de requête trop grands
+        http.code.444: Connexion fermée sans réponse
+        http.code.449: Réessayer avec
+        http.code.451: Indisponible pour des raisons légales
+        http.code.499: Demande fermée par le client
+        http.code.500: Erreur interne du serveur
+        http.code.501: Non implémenté
+        http.code.502: Mauvaise passerelle
+        http.code.503: Service non disponible
+        http.code.504: Temps d'attente de la passerelle dépassé
+        http.code.505: Version HTTP non prise en charge
+        http.code.506: La variante négocie également
+        http.code.507: Espace insuffisant
+        http.code.508: Boucle détectée
+        http.code.509: Limite de bande passante dépassée
+        http.code.510: Non prolongé
+        http.code.511: Authentification réseau requise
+        http.code.520: Erreur inconnue
+        http.code.521: Le serveur Web est en panne
+        http.code.522: La connexion a expiré
+        http.code.523: L'origine est inaccessible
+        http.code.524: Un dépassement de délai s'est produit
+        http.code.525: Échec de la prise de contact SSL
+        http.code.526: Certificat SSL invalide
+        http.code.527: Erreur de Railgun
+        http.code.598: Temps d'attente de la lecture réseau dépassé
+        http.code.599: Temps d'attente de la connexion réseau dépassé

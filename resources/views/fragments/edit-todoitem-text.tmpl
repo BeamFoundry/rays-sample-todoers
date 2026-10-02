@@ -1,0 +1,8 @@
+<form class="d-flex flex-grow-1"
+      hx-put="/todolists/{{.TodoID}}/items/{{.Item.ItemID}}"
+      hx-target="#item-{{.TodoID}}-{{.Item.ItemID}}"
+      hx-swap="outerHTML">
+    <input type="text" name="text" class="form-control form-control-sm me-2" value="{{.Item.Text}}" autofocus>
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+</form>
+

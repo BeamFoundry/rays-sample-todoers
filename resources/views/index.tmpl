@@ -1,0 +1,23 @@
+{{template "views/layouts/main" .}}
+
+{{define "title"}}{{ translate "index.html.title" }}{{end}}
+
+{{define "content"}}
+        <div class="row justify-content-end">
+            <div class="col-4">
+                <div class="btn-group">
+                    <a href="?lang=en" class="btn btn-{{ if ne .Lang "en" }}outline-{{end}}primary" aria-current="page">EN</a>
+                    <a href="?lang=fr" class="btn btn-{{ if ne .Lang "fr" }}outline-{{end}}primary" aria-current="page">FR</a>
+                </div>
+            </div>
+        </div>
+        <div class="p-5 mb-4 bg-white rounded-3 text-center">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">{{ translate "index.title" }}</h1>
+                <p class="fs-4">{{ translate "index.subtitle" }}</p>
+                <p>{{ translate "index.slogan" }}</p>
+                <a class="btn btn-primary btn-lg" href="/login" role="button">{{ translate "action.login" }}</a>
+                <a class="btn btn-secondary btn-lg" href="/register" role="button">{{ translate "action.register" }}</a>
+            </div>
+        </div>
+{{end}}

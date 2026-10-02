@@ -1,0 +1,40 @@
+{{- range .Todos }}
+<div class="col-sm-6 todolist" id="todolist-{{.TodoID}}">
+    <!--<input type="hidden" name="todo" value="{{.TodoID}}">-->
+    <form id="actions-todolist-{{.TodoID}}"
+        hx-put="/todolists/{{.TodoID}}/actions"
+        hx-target="#todolist-{{.TodoID}}"
+        hx-swap="none">
+    </form>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"
+                hx-get="/todolists/{{.TodoID}}/edit"
+                hx-target="closest .card-header"
+                hx-swap="outerHTML">
+                {{.Title}}
+            </h5>
+            <div>
+                <button class="btn btn-sm btn-primary"
+                        hx-post="/todolists/{{.TodoID}}/items"
+                        hx-target="#items-container-{{.TodoID}}"
+                        hx-swap="beforeend">
+                    {{ translate "app.action.add.item"}}
+                </button>
+                <button class="btn btn-sm btn-outline-danger"
+                        hx-delete="/todolists/{{.TodoID}}"
+                        hx-target="#todolist-{{.TodoID}}"
+                        hx-swap="outerHTML"
+                        hx-confirm="{{ translate "app.confirm.delete.list"}}">
+                    {{ translate "app.action.delete.list"}}
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush items-container" id="items-container-{{.TodoID}}">
+                {{- template "views/fragments/todoitem" .}}
+            </ul>
+        </div>
+    </div>
+</div>
+{{- end}}

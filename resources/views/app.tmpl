@@ -1,0 +1,37 @@
+{{- template "views/layouts/application" .}}
+{{- define "title" }}{{ translate "app.html.title" }}{{ end }}
+{{- define "content" }}
+{{- if .Message -}}
+<div class="d-flex justify-content-center">
+    <div class="col-md-8 col-lg-6 alert alert-success alert-dismissible fade show" role="alert">
+        {{ translate .Message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{{- end }}
+<div hx-headers='{"X-Csrf-Token":"{{.Csrf}}"}'>
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <h2 class="mb-0">{{ translate "app.title" .User.Name}}</h2>
+        <div>
+            <button class="btn btn-primary"
+                hx-post="/todolists"
+                hx-target="#todolists-container"
+                hx-swap="beforeend">
+                {{translate "app.action.add.list"}}
+            </button>
+            <div class="btn-group">
+                <a href="?lang=en" class="btn btn-{{ if ne .Lang "en" }}outline-{{end}}primary" aria-current="page">EN</a>
+                <a href="?lang=fr" class="btn btn-{{ if ne .Lang "fr" }}outline-{{end}}primary" aria-current="page">FR</a>
+            </div>
+            <a href="/profile" class="btn btn-outline-secondary ms-2">{{translate "action.profile"}}</a>
+            <a href="/logout" class="btn btn-outline-secondary ms-2">{{translate "action.logout"}}</a>
+        </div>
+    </div>
+
+    <div class="d-grid gap-3">
+        <form id="rank-todolist" hx-put="/todolists" hx-target="#todolists-container" hx-swap="innerHTML"></form>
+        <div id="todolists-container" class="row row-cols-2 row-cols-lg-3" hx-trigger="load" hx-get="/todolists" hx-target="this" hx-swap="innerHTML">
+        </div>
+    </div>
+</div>
+{{- end }}

@@ -1,0 +1,14 @@
+{{template "layout.html" .}}
+
+{{define "title"}}403 - Access Denied{{end}}
+
+{{define "content"}}
+<div class="p-5 mb-4 bg-white rounded-3 text-center">
+    <div class="container-fluid py-5">
+        <h1 class="display-1 fw-bold">403</h1>
+        <h2 class="display-5">Access Denied</h2>
+        <p class="fs-4">Sorry, you do not have permission to access this page.</p>
+        <a class="btn btn-primary btn-lg" href="/" role="button">Go to Homepage</a>
+    </div>
+</div>
+{{end}}

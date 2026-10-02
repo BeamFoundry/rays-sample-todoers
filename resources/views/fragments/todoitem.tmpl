@@ -1,0 +1,25 @@
+{{- range .Items }}
+<li class="list-group-item d-flex justify-content-between align-items-center todolist-item" id="item-{{$.TodoID}}-{{.ItemID}}">
+    <span class="flex-grow-1 me-2 form-check">
+        <input class="form-check-input" type="checkbox" id="item-{{$.TodoID}}-{{.ItemID}}-done"
+            hx-put="/todolists/{{$.TodoID}}/items/{{.ItemID}}/done"
+            hx-target="#item-{{$.TodoID}}-{{.ItemID}}"
+            hx-swap="outerHTML"
+            {{ if .Done }} checked{{ end }}>
+        <span class="{{ if .Done }} text-decoration-line-through{{ end }}"
+            hx-get="/todolists/{{$.TodoID}}/items/{{.ItemID}}/edit"
+            hx-target="#item-{{$.TodoID}}-{{.ItemID}}"
+            hx-swap="innerHTML">
+            {{.Text}}
+        </span>
+    </span>
+    <button class="btn btn-sm btn-danger"
+        hx-delete="/todolists/{{$.TodoID}}/items/{{.ItemID}}"
+        hx-target="#item-{{$.TodoID}}-{{.ItemID}}"
+        hx-swap="outerHTML"
+        hx-confirm="{{ translate "app.confirm.delete.item"}}">
+        &times;
+    </button>
+</li>
+{{- end}}
+

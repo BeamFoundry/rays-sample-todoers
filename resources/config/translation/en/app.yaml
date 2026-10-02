@@ -1,0 +1,49 @@
+app:
+  messages:
+    en:
+      translation:
+        action.login: Login
+        action.logout: Logout
+        action.profile.update: Update Profile
+        action.profile: Edit Profile
+        action.register: Register
+        app.action.add.item: + Item
+        app.action.add.list: + TODO List
+        app.action.delete.list: Delete
+        app.confirm.delete.item: Delete this item?
+        app.confirm.delete.list: Are you sure you want to delete this list?
+        app.html.title: My TODO Lists
+        app.title: "{0}'s TODO Lists"
+        error.back.home: Go to Homepage
+        fields.login.password: Password
+        fields.login.username: Username
+        fields.profile.confirm: Confirm Password
+        fields.profile.fullname: Full Name
+        fields.profile.password: New Password
+        fields.register.fullname: Full Name
+        fields.register.password: Password
+        fields.register.username: Username
+        index.html.title: Welcome to TODOer
+        index.slogan: Manage your tasks efficiently without a single page reload.
+        index.subtitle: A simple, fast, and modern TODO list application built with Go and HTMX.
+        index.title: Welcome to TODOer
+        item.title: Item {0}
+        login.error: Login failed
+        login.html.title: Login
+        login.register.action: Register here
+        login.register: Don't have an account?
+        login.title: Login
+        profile.back: Back to App
+        profile.change-password.subtitle: Leave the password fields blank to keep your current password.
+        profile.change-password.title: Change Password
+        profile.html.title: My Profile
+        profile.informations.updated: User fullname updated
+        profile.informations: Personal Informations
+        profile.password.update: User password updated
+        profile.title: Edit My Profile
+        register.html.title: Register
+        register.login.action: Login here
+        register.login: Already have an account?
+        register.successful: Account created and successfully logged in.
+        register.title: Create Account
+        todo.title: Todo {0}
