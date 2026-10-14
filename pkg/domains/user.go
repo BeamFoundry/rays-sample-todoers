@@ -16,6 +16,7 @@ type User struct {
 	Name      string
 	Username  string
 	Password  string
+	Admin     bool
 	Todos     []Todo
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -30,7 +31,7 @@ func (this *User) AfterDelete(tx *gorm.DB) (err error) {
 
 // GetAuthorities implements core.UserDetails.
 func (this *User) GetAuthorities() []GrantedAuthority {
-	if this.ID == 1 {
+	if this.Admin {
 		return []GrantedAuthority{Authority("ROLE_ADMIN"), Authority("ROLE_USER")}
 	}
 	return []GrantedAuthority{Authority("ROLE_USER")}
@@ -68,10 +69,6 @@ func (this *User) IsExpired() bool {
 // IsLocked implements core.UserDetails.
 func (this *User) IsLocked() bool {
 	return false
-}
-
-func (this User) Id() uint {
-	return this.ID
 }
 
 var _ UserDetails = &User{}

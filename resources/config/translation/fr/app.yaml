@@ -2,6 +2,7 @@ app:
   messages:
     fr:
       translation:
+        action.admin: Admin
         action.login: Connexion
         action.logout: Se déconnecter
         action.profile.update: Mettre à jour

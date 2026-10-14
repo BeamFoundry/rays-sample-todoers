@@ -1,4 +1,4 @@
-package config
+package configurations
 
 import (
 	. "github.com/BeamFoundry/rays/pkg/core"

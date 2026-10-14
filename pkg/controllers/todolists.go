@@ -4,9 +4,9 @@ import (
 	. "github.com/BeamFoundry/rays-fiber/pkg/core"
 	. "github.com/BeamFoundry/rays/pkg/web"
 
+	. "github.com/BeamFoundry/rays-sample-todoers/pkg/controllers/handlers"
+	. "github.com/BeamFoundry/rays-sample-todoers/pkg/core"
 	. "github.com/BeamFoundry/rays-sample-todoers/pkg/domains"
-	. "github.com/BeamFoundry/rays-sample-todoers/pkg/handlers"
-	. "github.com/BeamFoundry/rays-sample-todoers/pkg/services"
 
 	"github.com/gofiber/fiber/v3"
 )
@@ -38,13 +38,13 @@ func (this *TodolistsController) NewList(
 	c fiber.Ctx,
 ) error {
 	user := fiber.Locals[*User](c, "User")
-	if todo, err := this.todoService.CreateTodolist(user); err != nil {
+	todo, err := this.todoService.CreateTodolist(user)
+	if err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
-	} else {
-		return c.Render("views/fragments/todolist", fiber.Map{
-			"Todos": []*Todo{todo},
-		}, "views/fragments/todoitem")
 	}
+	return c.Render("views/fragments/todolist", fiber.Map{
+		"Todos": []*Todo{todo},
+	}, "views/fragments/todoitem")
 }
 
 func (this *TodolistsController) ReorderLists(
@@ -103,6 +103,8 @@ func (this *TodolistsController) ListsItemsActions(
 		if err := this.todoService.MoveListItem(todo, form.Data[0], form.Data[1], form.Data[2]); err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
+	default:
+		return c.SendStatus(fiber.StatusBadRequest)
 	}
 
 	return c.SendStatus(fiber.StatusOK)
@@ -134,20 +136,21 @@ func (this *TodolistsController) SaveList(
 	}{}
 
 	// TODO : Check again this works (list was named todo, shadowing todo)
-	if list, ok := this.todoService.GetListWithItems(todo.Id()).Get(); !ok {
+	list, ok := this.todoService.GetListWithItems(todo.ID).Get()
+	if !ok {
 		return c.SendStatus(fiber.StatusInternalServerError)
-	} else if err := c.Bind().Form(&form); err != nil {
-		return c.SendStatus(fiber.StatusBadRequest)
-	} else {
-		list.Title = form.Title
-		if t, err := this.todoService.SaveList(list); err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
-		} else {
-			return c.Render("views/fragments/todolist", fiber.Map{
-				"Todos": []*Todo{t},
-			}, "views/fragments/todoitem")
-		}
 	}
+	if err := c.Bind().Form(&form); err != nil {
+		return c.SendStatus(fiber.StatusBadRequest)
+	}
+	list.Title = form.Title
+	t, err := this.todoService.SaveList(list)
+	if err != nil {
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+	return c.Render("views/fragments/todolist", fiber.Map{
+		"Todos": []*Todo{t},
+	}, "views/fragments/todoitem")
 }
 
 func (this *TodolistsController) DeleteList(
@@ -161,9 +164,8 @@ func (this *TodolistsController) DeleteList(
 
 	if err := this.todoService.DeleteList(todo); err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
-	} else {
-		return c.SendString("")
 	}
+	return c.SendString("")
 }
 
 func (this *TodolistsController) NewItem(
@@ -174,13 +176,13 @@ func (this *TodolistsController) NewItem(
 	c fiber.Ctx,
 ) error {
 	todo := fiber.Locals[*Todo](c, "Todo")
-	if item, err := this.todoService.AddItem(todo); err != nil {
+	item, err := this.todoService.AddItem(todo)
+	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
-	} else {
-		return c.Render("views/fragments/todoitem", fiber.Map{
-			"Items": []*Item{item},
-		})
 	}
+	return c.Render("views/fragments/todoitem", fiber.Map{
+		"Items": []*Item{item},
+	})
 }
 
 func (this *TodolistsController) EditItem(
@@ -212,16 +214,15 @@ func (this *TodolistsController) SaveItem(
 	item := fiber.Locals[*Item](c, "Item")
 	if err := c.Bind().Form(&form); err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
-	} else {
-		item.Text = form.Text
-		if i, err := this.todoService.SaveItem(item); err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
-		} else {
-			return c.Render("views/fragments/todoitem", fiber.Map{
-				"Items": []*Item{i},
-			})
-		}
 	}
+	item.Text = form.Text
+	i, err := this.todoService.SaveItem(item)
+	if err != nil {
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+	return c.Render("views/fragments/todoitem", fiber.Map{
+		"Items": []*Item{i},
+	})
 }
 
 func (this *TodolistsController) ToggleItem(
@@ -234,13 +235,13 @@ func (this *TodolistsController) ToggleItem(
 ) error {
 	item := fiber.Locals[*Item](c, "Item")
 	item.Done = !item.Done
-	if i, err := this.todoService.SaveItem(item); err != nil {
+	i, err := this.todoService.SaveItem(item)
+	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
-	} else {
-		return c.Render("views/fragments/todoitem", fiber.Map{
-			"Items": []*Item{i},
-		})
 	}
+	return c.Render("views/fragments/todoitem", fiber.Map{
+		"Items": []*Item{i},
+	})
 }
 
 func (this *TodolistsController) DeleteItem(
@@ -254,7 +255,6 @@ func (this *TodolistsController) DeleteItem(
 	item := fiber.Locals[*Item](c, "Item")
 	if err := this.todoService.DeleteItem(item); err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
-	} else {
-		return c.SendString("")
 	}
+	return c.SendString("")
 }

@@ -9,7 +9,7 @@ import (
 	. "github.com/BeamFoundry/rays/pkg/i18n"
 	. "github.com/BeamFoundry/rays/pkg/web"
 
-	. "github.com/BeamFoundry/rays-sample-todoers/pkg/services"
+	. "github.com/BeamFoundry/rays-sample-todoers/pkg/core"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/session"
@@ -54,7 +54,8 @@ func (this *RegisterController) Post(
 
 	if err := c.Bind().Form(&form); err != nil {
 		if errs, ok := errors.AsType[validator.ValidationErrors](err); ok {
-			return c.Render("views/register", fiber.Map{"Form": form, "Errors": this.messageSourceValidator.TranslateValidationErrors(errs)})
+			tErrs := this.messageSourceValidator.TranslateValidationErrors(errs, "fields.register")
+			return c.Render("views/register", fiber.Map{"Form": form, "Errors": tErrs})
 		}
 		return c.Render("views/register", fiber.Map{"Form": form, "Error": err.Error()})
 	}

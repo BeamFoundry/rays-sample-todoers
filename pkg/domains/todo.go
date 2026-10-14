@@ -2,10 +2,9 @@ package domains
 
 import (
 	"time"
-	//"gorm.io/gorm"
-	//"gorm.io/gorm/clause"
 )
 
+//nolint:govet // model
 type Todo struct {
 	ID        uint
 	UserID    uint
@@ -16,14 +15,3 @@ type Todo struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
-
-func (this Todo) Id() uint {
-	return this.ID
-}
-
-/*
-func (this *Todo) AfterDelete(tx *gorm.DB) (err error) {
-	tx.Clauses(clause.Returning{}).Where("todo_id = ?", this.ID).Delete(&Item{})
-	return
-}
-*/

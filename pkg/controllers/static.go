@@ -23,6 +23,7 @@ type StaticController struct {
 
 var _ StaticFS = &StaticController{}
 
+//nolint:gocritic // constructor
 func (this StaticController) New() *StaticController {
 	this.hashFS = hashfs.NewFS(resources.Static())
 	return &this

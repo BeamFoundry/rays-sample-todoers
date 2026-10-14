@@ -4,7 +4,8 @@ rays:
     loggers:
       github.com/BeamFoundry/rays/: DEBUG
       github.com/BeamFoundry/rays-fiber/: DEBUG
-      github.com/BeamFoundry/rays-boilerplate/: DEBUG
+      github.com/BeamFoundry/rays-orm/: DEBUG
+      github.com/BeamFoundry/rays-sample-todoers/: DEBUG
   fiber:
     servers:
       primary:

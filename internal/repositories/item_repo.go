@@ -1,22 +1,14 @@
 package repositories
 
 import (
+	. "github.com/BeamFoundry/rays-orm/pkg/core"
+	. "github.com/BeamFoundry/rays-sample-todoers/pkg/core"
 	. "github.com/BeamFoundry/rays-sample-todoers/pkg/domains"
-	. "github.com/BeamFoundry/rays-orm"
 	. "github.com/BeamFoundry/rays/pkg/lang"
 )
 
-type ItemRepository interface {
-	OrmRepositoryInterface[Item, uint]
-	FindAllByTodoID(todoId uint) []Item
-	FindAllByTodoIDOrderByRank(todoId uint) []Item
-	FindAllByTodoIDAndRankGreaterThanOrEqual(uint, uint) []Item
-	FindOneByTodoIDAndItemID(uint, uint) Optional[*Item]
-	FindOneByTodoIDAndRank(uint, uint) Optional[*Item]
-}
-
 type ItemRepositoryImpl struct {
-	OrmRepositoryComposite[Item, uint]
+	OrmRepository[Item, uint]
 	findAllByTodoIDOrderByID                 func(uint) []Item
 	findAllByTodoIDOrderByRank               func(uint) []Item
 	findAllByTodoIDAndRankGreaterThanOrEqual func(uint, uint) []Item

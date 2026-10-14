@@ -1,28 +1,21 @@
-package config
+package configurations
 
 import (
 	"errors"
 	"net/http"
 
-	. "github.com/BeamFoundry/rays-fiber/pkg/core"
-	. "github.com/BeamFoundry/rays-fiber/pkg/middleware"
 	. "github.com/BeamFoundry/rays/pkg/core"
+	. "github.com/BeamFoundry/rays/pkg/lang"
 	. "github.com/BeamFoundry/rays/pkg/web"
 
-	. "github.com/BeamFoundry/rays-sample-todoers/pkg/handlers"
-
-	"github.com/BeamFoundry/rays-sample-todoers/resources"
 	"github.com/BeamFoundry/rays-fiber/pkg/template/html"
+	"github.com/BeamFoundry/rays-sample-todoers/resources"
 
 	"github.com/gofiber/fiber/v3"
 )
 
 type FiberAppConfigCustomizer struct {
-	FiberPathFilter
-	Compress
-	Rewrite
-	Logger
-	LocaleResolver
+	Component
 	logger          Logging               `@:"Inject"`
 	structValidator fiber.StructValidator `@:"Inject"`
 	fnMaps          []FuncMapper          `@:"Inject"`
@@ -44,12 +37,16 @@ func (this *FiberAppConfigCustomizer) FiberConfig(config *fiber.Config) {
 		httpError := struct {
 			Message string
 			Code    int
-		}{Code: fiber.StatusInternalServerError}
-
+		}{
+			Message: err.Error(),
+			Code:    fiber.StatusInternalServerError,
+		}
 		// Retrieve the custom status code if it's a *fiber.Error
 		if e, ok := errors.AsType[*fiber.Error](err); ok {
 			httpError.Code = e.Code
 			httpError.Message = e.Message
+		} else if e, ok := errors.AsType[Error](err); ok {
+			e.LogErrorWithStackTrace()
 		}
 		return c.Render("views/error", fiber.Map{"Error": httpError})
 	}

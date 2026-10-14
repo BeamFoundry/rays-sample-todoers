@@ -2,6 +2,7 @@
 all: clean nocgo
 
 .PHONY: tool
+tool:
 	go tool stereotyper
 	
 .PHONY: clean

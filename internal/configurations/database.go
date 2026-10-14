@@ -1,14 +1,14 @@
-package config
+package configurations
 
 import (
 	. "github.com/BeamFoundry/rays-sample-todoers/pkg/domains"
 	. "github.com/BeamFoundry/rays/pkg/core"
 	. "github.com/BeamFoundry/rays/pkg/lang"
 
-	slogGorm "github.com/orandin/slog-gorm"
+	sloggorm "github.com/orandin/slog-gorm"
 	"gorm.io/gorm"
 
-	sqlite_nocgo "github.com/glebarez/sqlite"
+	sqlitenocgo "github.com/glebarez/sqlite"
 	"gorm.io/driver/sqlite"
 )
 
@@ -43,7 +43,7 @@ func (this *SQLiteDB) Open(dns string) gorm.Dialector {
 type SQLiteDBNoCGO struct{}
 
 func (this *SQLiteDBNoCGO) Open(dns string) gorm.Dialector {
-	return sqlite_nocgo.Open(dns)
+	return sqlitenocgo.Open(dns)
 }
 
 //---
@@ -82,8 +82,8 @@ type DbConfig struct {
 // Rays container will try to create it.
 func (this *DbConfig) config() *gorm.Config {
 	return &gorm.Config{
-		Logger: slogGorm.New(
-			slogGorm.WithHandler(this.logger.Handler()),
+		Logger: sloggorm.New(
+			sloggorm.WithHandler(this.logger.Handler()),
 		),
 	}
 }
@@ -94,11 +94,12 @@ func (this *DbConfig) DB(
 		ConditionalOnMissingBeam
 	},
 ) (*gorm.DB, Error) {
-	if db, err := gorm.Open(this.db.Open("todolist.db"), this.config()); err == nil {
-		return db, nil
-	} else {
+	db, err := gorm.Open(this.db.Open("todolist.db"), this.config())
+	if err != nil {
 		return nil, NewErrorFrom(err)
 	}
+
+	return db, nil
 }
 
 // This method will be called if the "profile" named "test" is activated (ConditionalOnProfile), creating
@@ -114,9 +115,10 @@ func (this *DbConfig) DBTesting(
 		ConditionalOnProfile `Name:"test"`
 	},
 ) (*gorm.DB, Error) {
-	if db, err := gorm.Open(this.db.Open("file::memory:"), this.config()); err == nil {
-		return db, nil
-	} else {
+	db, err := gorm.Open(this.db.Open("file::memory:?cache=shared"), this.config())
+	if err != nil {
 		return nil, NewErrorFrom(err)
 	}
+
+	return db, nil
 }

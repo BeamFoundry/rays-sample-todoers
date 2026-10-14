@@ -8,8 +8,8 @@ import (
 	. "github.com/BeamFoundry/rays/pkg/i18n"
 	. "github.com/BeamFoundry/rays/pkg/web"
 
+	. "github.com/BeamFoundry/rays-sample-todoers/pkg/core"
 	. "github.com/BeamFoundry/rays-sample-todoers/pkg/domains"
-	. "github.com/BeamFoundry/rays-sample-todoers/pkg/services"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/session"
@@ -34,17 +34,18 @@ func (this *PageController) Home(
 	auth := this.securityContextHolder.GetContext().GetAuthentication()
 	if !auth.IsAuthenticated() {
 		return c.Render("views/index", fiber.Map{})
-	} else if user, ok := auth.GetPrincipal().(*User); !ok {
-		return c.SendStatus(fiber.StatusInternalServerError)
-	} else {
-		values := fiber.Map{"User": user}
-		sess := session.FromContext(c)
-		if message, ok := sess.Get("message").(string); ok {
-			sess.Delete("message")
-			values["Message"] = message
-		}
-		return c.Render("views/app", values, "views/layouts/application")
 	}
+	user, ok := auth.GetPrincipal().(*User)
+	if !ok {
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+	values := fiber.Map{"User": user}
+	sess := session.FromContext(c)
+	if message, ok := sess.Get("message").(string); ok {
+		sess.Delete("message")
+		values["Message"] = message
+	}
+	return c.Render("views/app", values, "views/layouts/application")
 }
 
 func (this *PageController) ViewProfile(
@@ -54,11 +55,11 @@ func (this *PageController) ViewProfile(
 	c fiber.Ctx,
 ) error {
 	auth := this.securityContextHolder.GetContext().GetAuthentication()
-	if user, ok := auth.GetPrincipal().(*User); !ok {
+	user, ok := auth.GetPrincipal().(*User)
+	if !ok {
 		return c.SendStatus(fiber.StatusForbidden)
-	} else {
-		return c.Render("views/profile", fiber.Map{"User": user})
 	}
+	return c.Render("views/profile", fiber.Map{"User": user})
 }
 
 func (this *PageController) EditProfile(
@@ -76,32 +77,33 @@ func (this *PageController) EditProfile(
 
 	auth := this.securityContextHolder.GetContext().GetAuthentication()
 	messages := []string{}
-	if user, ok := auth.GetPrincipal().(*User); !ok {
+	user, ok := auth.GetPrincipal().(*User)
+	if !ok {
 		return c.SendStatus(fiber.StatusForbidden)
-	} else if err := c.Bind().Form(&form); err != nil {
-		if errs, ok := errors.AsType[validator.ValidationErrors](err); ok {
-			return c.Render("views/profile", fiber.Map{"User": user, "Form": form, "Error": err.Error()})
-		} else {
-			errs := this.messageSourceValidator.TranslateValidationErrors(errs)
-			return c.Render("views/profile", fiber.Map{"User": user, "Form": form, "Errors": errs})
-		}
-	} else {
-		if form.Name != user.Name {
-			if u, err := this.userService.UpdateName(form.Name, user); err != nil {
-				return c.Render("views/profile", fiber.Map{"User": user, "Error": err})
-			} else {
-				user = u
-				messages = append(messages, "profile.informations.updated")
-			}
-		}
-		if form.Password != "" {
-			if u, err := this.userService.UpdatePassword(form.Password, user); err != nil {
-				return c.Render("views/profile", fiber.Map{"User": user, "Error": err})
-			} else {
-				user = u
-				messages = append(messages, "profile.password.update")
-			}
-		}
-		return c.Render("views/profile", fiber.Map{"User": user, "Messages": messages})
 	}
+
+	if err := c.Bind().Form(&form); err != nil {
+		if errs, ok := errors.AsType[validator.ValidationErrors](err); ok {
+			tErrs := this.messageSourceValidator.TranslateValidationErrors(errs, "fields.profile")
+			return c.Render("views/profile", fiber.Map{"User": user, "Form": form, "Errors": tErrs})
+		}
+		return c.Render("views/profile", fiber.Map{"User": user, "Form": form, "Error": err.Error()})
+	}
+	if form.Name != user.Name {
+		u, err := this.userService.UpdateName(form.Name, user)
+		if err != nil {
+			return c.Render("views/profile", fiber.Map{"User": user, "Error": err})
+		}
+		user = u
+		messages = append(messages, "profile.informations.updated")
+	}
+	if form.Password != "" {
+		u, err := this.userService.UpdatePassword(form.Password, user)
+		if err != nil {
+			return c.Render("views/profile", fiber.Map{"User": user, "Error": err})
+		}
+		user = u
+		messages = append(messages, "profile.password.update")
+	}
+	return c.Render("views/profile", fiber.Map{"User": user, "Messages": messages})
 }

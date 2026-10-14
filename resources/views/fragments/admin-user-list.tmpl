@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Full Name</th>
+                <th>Name</th>
                 <th>Username</th>
                 <th>Actions</th>
             </tr>
@@ -12,7 +12,7 @@
             {{range .Users}}
             <tr id="user-row-{{.ID}}">
                 <td>{{.ID}}</td>
-                <td>{{.FullName}}</td>
+                <td>{{.Name}}</td>
                 <td>{{.Username}}</td>
                 <td>
                     <button class="btn btn-sm btn-danger"

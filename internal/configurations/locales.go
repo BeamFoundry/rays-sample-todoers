@@ -1,4 +1,4 @@
-package config
+package configurations
 
 import (
 	. "github.com/BeamFoundry/rays/pkg/core"
@@ -44,7 +44,7 @@ func (this *LocalizationConfig) LocaleContextHolder(
 		ConditionalOnMissingBeam
 	},
 ) LocaleContextHolder {
-	return DefaultLocaleContextHolder{}.New(defaultLocale)
+	return ThreadLocaleContextHolder{}.New(defaultLocale)
 }
 
 func (this *LocalizationConfig) MessageSourceValidator(

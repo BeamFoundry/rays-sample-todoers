@@ -22,17 +22,17 @@ import (
 	"github.com/BeamFoundry/rays-sample-todoers/resources"
 
 	// Initializing local packages
-	_ "github.com/BeamFoundry/rays-sample-todoers/pkg/configurations"
+	_ "github.com/BeamFoundry/rays-sample-todoers/internal/configurations"
+	_ "github.com/BeamFoundry/rays-sample-todoers/internal/repositories"
+	_ "github.com/BeamFoundry/rays-sample-todoers/internal/services"
 	_ "github.com/BeamFoundry/rays-sample-todoers/pkg/controllers"
 	_ "github.com/BeamFoundry/rays-sample-todoers/pkg/domains"
-	_ "github.com/BeamFoundry/rays-sample-todoers/pkg/repositories"
-	_ "github.com/BeamFoundry/rays-sample-todoers/pkg/services"
 )
 
 var (
-	config    []string          = []string{}
-	profiles  []string          = []string{}
-	overrides map[string]string = map[string]string{}
+	config    = []string{}
+	profiles  = []string{}
+	overrides = map[string]string{}
 )
 
 // This is a sample default main() function for rays.
@@ -81,7 +81,9 @@ func main() {
 	ctx := rays.ApplicationContext()
 
 	// Loading embedded configuration
-	ctx.AddConfigFS(resources.Config())
+	if err := ctx.AddConfigFS(resources.Config()); err != nil {
+		err.LogError()
+	}
 
 	// Adding flags
 	flag.StringSliceVarP(&config, "config", "c", []string{}, "Additional configuration paths")
@@ -91,19 +93,25 @@ func main() {
 
 	// Set profiles
 	if len(profiles) > 0 {
-		ctx.SetActiveProfiles(profiles)
+		if err := ctx.SetActiveProfiles(profiles); err != nil {
+			err.LogError()
+		}
 	}
 
 	// Add additional local config directory
 	for _, dir := range config {
 		if stat, err := os.Stat(dir); os.IsExist(err) && stat.IsDir() {
-			ctx.AddConfigFS(os.DirFS(dir))
+			if err := ctx.AddConfigFS(os.DirFS(dir)); err != nil {
+				err.LogError()
+			}
 		}
 	}
 
 	// Load any overrides defined
 	for key, value := range overrides {
-		ctx.AddOverride(key, value)
+		if err := ctx.AddOverride(key, value); err != nil {
+			err.LogError()
+		}
 	}
 
 	// Load overrides with environment variables
@@ -115,7 +123,9 @@ func main() {
 		key := String(env[0]).ToUpperCase()
 		if key.StartsWith("RAYS_") || key.StartsWith("APP_") {
 			key = key.Replace("_", ".").ToLowerCase()
-			ctx.AddOverride(key.String(), env[1])
+			if err := ctx.AddOverride(key.String(), env[1]); err != nil {
+				err.LogError()
+			}
 		}
 	}
 

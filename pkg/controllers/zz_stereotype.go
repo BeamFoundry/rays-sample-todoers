@@ -4,7 +4,9 @@ package controllers
 
 import _rays_core "github.com/BeamFoundry/rays/pkg/core"
 
-var _, _ = any(&TodolistsController{}).(_rays_core.Stereotype)
+var _, _ = any(&AdminController{}).(_rays_core.Stereotype)
+var _, _ = any(&GlobalPathFilter{}).(_rays_core.Stereotype)
 var _, _ = any(&PageController{}).(_rays_core.Stereotype)
 var _, _ = any(&RegisterController{}).(_rays_core.Stereotype)
 var _, _ = any(&StaticController{}).(_rays_core.Stereotype)
+var _, _ = any(&TodolistsController{}).(_rays_core.Stereotype)

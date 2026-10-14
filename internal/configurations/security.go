@@ -1,4 +1,4 @@
-package config
+package configurations
 
 import (
 	. "github.com/BeamFoundry/rays-web-security/pkg/config"
@@ -28,7 +28,7 @@ func (this *SecurityConfig) HttpSecurity(
 		AuthorizedHTTPRequests().
 		Paths("/profile").Authenticated().
 		Paths("/todolists**").HasAuthority("ROLE_USER").
-		Paths("/admin/**").HasAuthority("ROLE_ADMIN").
+		Paths("/admin", "/admin/**").HasAuthority("ROLE_ADMIN").
 		Paths("/static/**").PermitAll().
 		Paths("/.well-known/**").PermitAll().
 		Paths("/*").PermitAll().

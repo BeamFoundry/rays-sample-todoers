@@ -3,8 +3,8 @@ package handlers
 import (
 	. "github.com/BeamFoundry/rays-web-security/pkg/core"
 
+	. "github.com/BeamFoundry/rays-sample-todoers/pkg/core"
 	. "github.com/BeamFoundry/rays-sample-todoers/pkg/domains"
-	. "github.com/BeamFoundry/rays-sample-todoers/pkg/services"
 
 	"github.com/gofiber/fiber/v3"
 )
@@ -41,7 +41,7 @@ func (this *AppSecureTodo) Handler() fiber.Handler {
 		user := fiber.Locals[*User](c, "User")
 		if todo, ok := this.todoService.GetUserList(user, todo_id).Get(); !ok {
 			return c.SendStatus(fiber.StatusBadRequest)
-		} else if todo.UserID != user.Id() {
+		} else if todo.UserID != user.ID {
 			return c.SendStatus(fiber.StatusForbidden)
 		} else {
 			fiber.Locals(c, "Todo", todo)
@@ -64,7 +64,7 @@ func (this *AppSecureItem) Handler() fiber.Handler {
 		todo := fiber.Locals[*Todo](c, "Todo")
 		if item, ok := this.todoService.GetTodoItem(todo, item_id).Get(); !ok {
 			return c.SendStatus(fiber.StatusInternalServerError)
-		} else if item.TodoID != todo.Id() {
+		} else if item.TodoID != todo.ID {
 			return c.SendStatus(fiber.StatusBadRequest)
 		} else {
 			fiber.Locals(c, "Item", item)

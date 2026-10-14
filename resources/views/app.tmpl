@@ -24,6 +24,9 @@
                 <a href="?lang=fr" class="btn btn-{{ if ne .Lang "fr" }}outline-{{end}}primary" aria-current="page">FR</a>
             </div>
             <a href="/profile" class="btn btn-outline-secondary ms-2">{{translate "action.profile"}}</a>
+            {{- if .User.Admin }}
+            <a href="/admin" class="btn btn-outline-secondary ms-2">{{translate "action.admin"}}</a>
+            {{- end }}
             <a href="/logout" class="btn btn-outline-secondary ms-2">{{translate "action.logout"}}</a>
         </div>
     </div>

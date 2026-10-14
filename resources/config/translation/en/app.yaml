@@ -2,6 +2,7 @@ app:
   messages:
     en:
       translation:
+        action.admin: Admin
         action.login: Login
         action.logout: Logout
         action.profile.update: Update Profile
