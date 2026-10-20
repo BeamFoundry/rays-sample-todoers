@@ -1,6 +1,6 @@
 # Todoers &mdash; Rays Framework Sample Application
 
-[![Go Version](https://img.shields.io/badge/Go-1.26+-00ADD8?style=flat&logo=go)](https://golang.org)
+[![Go Version](https://img.shields.io/badge/Go-1.27+-00ADD8?style=flat&logo=go)](https://golang.org)
 [![Framework](https://img.shields.io/badge/Framework-BeamFoundry%2FRays-6f42c1?style=flat)](https://github.com/BeamFoundry/rays)
 [![Web](https://img.shields.io/badge/Web-Fiber%20v3-00ACD7?style=flat)](https://github.com/gofiber/fiber)
 [![Frontend](https://img.shields.io/badge/Frontend-HTMX%20%2B%20Bootstrap%205-336699?style=flat)](https://htmx.org)
