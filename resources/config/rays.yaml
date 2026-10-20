@@ -18,9 +18,9 @@ rays:
           format: "${time} FIBER ${reqHeader:host} | ${method} | ${status} | ${url} | ${bytesSent} | \"${locals:httpPolicy}\"\n"
         rewrite:
           rules:
-            /apple-touch-icon.png: /static/images/favicon/apple-touch-icon.png
-            /favicon-32x32.png: /static/images/favicon/favicon-32x32.png
-            /favicon-16x16.png: /static/images/favicon/favicon-16x16.png
-            /favicon.ico: /static/images/favicon/favicon.ico
+            - /apple-touch-icon.png: /static/images/favicon/apple-touch-icon.png
+            - /favicon-32x32.png: /static/images/favicon/favicon-32x32.png
+            - /favicon-16x16.png: /static/images/favicon/favicon-16x16.png
+            - /favicon.ico: /static/images/favicon/favicon.ico
         static:
           browse: true
