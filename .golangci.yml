@@ -25,7 +25,7 @@ linters:
     # - forcetypeassert
     - ginkgolinter
     - gochecksumtype
-    - goconst
+    # - goconst
     - gocritic
     - gomoddirectives
     - goprintffuncname

@@ -48,7 +48,7 @@ func (this *FiberAppConfigCustomizer) FiberConfig(config *fiber.Config) {
 		} else if e, ok := errors.AsType[Error](err); ok {
 			e.LogErrorWithStackTrace()
 		}
-		return c.Render("views/error", fiber.Map{"Error": httpError})
+		return c.Status(httpError.Code).Render("views/error", fiber.Map{"Error": httpError})
 	}
 	config.StructValidator = this.structValidator
 	config.PassLocalsToViews = true

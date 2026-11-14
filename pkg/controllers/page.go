@@ -5,6 +5,7 @@ import (
 
 	. "github.com/BeamFoundry/rays-fiber/pkg/core"
 	. "github.com/BeamFoundry/rays-web-security/pkg/core"
+	. "github.com/BeamFoundry/rays/pkg/core"
 	. "github.com/BeamFoundry/rays/pkg/i18n"
 	. "github.com/BeamFoundry/rays/pkg/web"
 
@@ -19,6 +20,7 @@ import (
 
 type PageController struct {
 	FiberController
+	logger                Logging               `@:"Inject"`
 	securityContextHolder SecurityContextHolder `@:"Inject"`
 
 	userService            UserService            `@:"Inject"`
@@ -33,6 +35,7 @@ func (this *PageController) Home(
 ) error {
 	auth := this.securityContextHolder.GetContext().GetAuthentication()
 	if !auth.IsAuthenticated() {
+		this.logger.Info("Rendering unauthenticated home")
 		return c.Render("views/index", fiber.Map{})
 	}
 	user, ok := auth.GetPrincipal().(*User)

@@ -15,7 +15,7 @@ rays:
           cacheControl: true
         logger:
           timeFormat: "2006/01/02 15:04:05.000"
-          format: "${time} FIBER ${reqHeader:host} | ${method} | ${status} | ${url} | ${bytesSent} | \"${locals:httpPolicy}\"\n"
+          format: "${time} ${blue}FIBER${reset} \u001b[35m${reqHeader:host}${reset} | ${method} | ${status} | ${url} | ${bytesSent} | \u001b[2m${locals:httpPolicy}${reset}\n"
         rewrite:
           rules:
             - /apple-touch-icon.png: /static/images/favicon/apple-touch-icon.png

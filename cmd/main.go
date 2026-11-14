@@ -86,8 +86,12 @@ func main() {
 	}
 
 	// Adding flags
+	//
+	// Additional path directory for configuration files.
 	flag.StringSliceVarP(&config, "config", "c", []string{}, "Additional configuration paths")
-	flag.StringSliceVarP(&profiles, "profile", "p", []string{}, "Profile to use, default : none")
+	// Define and override the default profiles ("test" in this example)
+	flag.StringSliceVarP(&profiles, "profile", "p", []string{"test"}, "Profile to use, default : none")
+	// Override configuration keys
 	flag.StringToStringVar(&overrides, "override", map[string]string{}, "Overrides configuration key inline")
 	flag.Parse()
 
